@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket</title>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+</head>
+<body>
+<div>
+    <div>
+        <input type="text" id="input" /><button id="send">Send</button>
+        <span id="date"></span>
+    </div>
+    <div id="content">
+
+    </div>
+    <script>
+        var socket=io();
+        $('#send').click(function(){
+            var text=$('#input').val();
+            $('#content').append('<div>'+text+'</div>');
+            socket.emit('sMeg',text);
+        });
+
+        socket.on('sMeg',function(data){
+            $('#content').append('<div>'+data+'</div>');
+        });
+        socket.on('date',function(data){
+            $('#date').text(data);
+        });
+    </script>
+</div>
+</body>
+</html>
